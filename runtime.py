@@ -8,19 +8,19 @@ from pymongo import *
 from beebotte import *
 
 gcontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-# Conexion con servidores de BBDD
+# Conexion con servidores de Beebotte
 bclient = BBT("XWwwkSrM4bmcjd0E87Q7DIUW", "sBcJaNY4DRBhmzHyLy3CSTTX6LF1nzj8")
 mclient = MongoClient('localhost',27017)
-# Acceso a la base de datos
+# Acceso a la base de datos de MongoDB
 db = mclient.noticias_db
-# Acceso a la coleccion
+# Acceso a la coleccion de MongoDB
 results = db.results
 
 # Se llama a la funcion que arranca el timer
 def bucle():
 	database()
 
-# Funcion que estrae los datos de la web
+# Funcion que extrae los datos de la web
 def check():
 	# Fecha y hora actual
 	wdate = t.strftime("%d/%m/%y - %X")
@@ -32,7 +32,7 @@ def check():
 	wclics = int(re.search('(\d+)\s*clics',wtexto).group(1))
 	return wtitular, wmeneos, wclics, wdate
 
-# Funcion de almacena los valores en las bases de datos
+# Funcion que almacena los valores en las bases de datos
 def database():
 	# Obtener datos de la web
 	[wtitular, wmeneos, wclics, wdate] = check()
@@ -45,7 +45,7 @@ def database():
 	bclient.write("compu", "Clics", wclics)
 	bclient.write("compu", "Date", wdate)
 	
-	# Base de datos MngoDB
+	# Base de datos MongoDB
 	resultado = results.insert_one(dic_noticia)	
 	# Iteracion cada 2 minutos
 	thr.Timer(120.0, database).start()
@@ -103,5 +103,4 @@ def f_media():
 	# Se calcula la media
 	b_media = numpy.mean(b_clics)
 	b_media = ("%.2f" % b_media)
-
 	return m_media, b_media
