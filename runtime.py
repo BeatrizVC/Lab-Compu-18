@@ -23,7 +23,7 @@ def bucle():
 # Funcion que extrae los datos de la web
 def check():
 	# Fecha y hora actual
-	wdate = t.strftime("%d/%m/%y - %X")
+	wdate = t.strftime("%y/%m/%d - %X")
 	# Web que se quiere analizar
 	wtexto = urllib.urlopen('https://www.meneame.net', context = gcontext).read()
 	# Titular, meneos y clics de la primera noticia
