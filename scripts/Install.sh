@@ -16,5 +16,3 @@ virtualenv flask
 . flask/bin/activate
 sudo pip install -r requirements.txt
 deactivate
-sudo cp /home/ubuntu/Lab-Compu-18/scripts/Arranque.sh /etc/init.d/
-sudo update-rc.d Arranque.sh defaults
